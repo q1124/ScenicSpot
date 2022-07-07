@@ -42,7 +42,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <router-link to="" class="cursor-pointer" custom >
+          <router-link to="/scenic" class="cursor-pointer" custom >
             <v-btn color="amber darken-4" class="rounded-pill mt-5 pa-5 white--text">看更多景點</v-btn>
           </router-link>
         </v-row>
@@ -97,6 +97,33 @@
           </router-link>
         </v-row>
       </div>
+      <div style="margin-top: 200px">
+        <v-img class="cloud_four" max-width="450px" src="../assets/image/cloud_3@2x.png"></v-img>
+        <p class="text-center text-h5 secondary--text font-weight-bold mb-10">優質名宿</p>
+        <v-row dense class="justify-center">
+          <v-col cols="3" v-for="hotel in this.hotelList" :key="hotel.id">
+            <v-card elevation="5" class="rounded-xl pa-5">
+              <v-img
+                class="rounded-xl"
+                style="margin: 0 auto"
+                height="100%"
+                width="150px"
+                :src ='hotel.src'
+              ></v-img>
+              <v-card-title class="font-weight-bold">{{hotel.title}}</v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
+      <!-- TODO: footer component -->
+      <!-- <div>
+        <v-rol>
+           <v-img class="boot" max-width="350px" src="../assets/image/boot@2x.png"></v-img>
+          <v-col>
+            <p>台灣好好</p>
+          </v-col>
+        </v-rol>
+      </div> -->
     </v-container>
   </div>
 </template>
@@ -106,7 +133,7 @@
 import ScenicSpot from '@/api/ScenicSpot'
 import Tourism from '@/api/Tourism'
 import Restaurant from '@/api/Restaurant'
-import Hotel from '@/api/Hotel'
+// import Hotel from '@/api/Hotel'
 
 import topBar from '@/components/topbar'
 
@@ -120,7 +147,28 @@ export default {
       scenicList: [],
       TourismList: [],
       restaurantList: [],
-      hotelList: []
+      hotelList: [
+        {
+          id: 1,
+          title: '一般旅館',
+          src: require('../assets/image/一般旅館@2x.png')
+        },
+        {
+          id: 2,
+          title: '民宿',
+          src: require('../assets/image/民宿@2x.png')
+        },
+        {
+          id: 3,
+          title: '一般觀光旅館',
+          src: require('../assets/image/一般觀光旅館@2x.png')
+        },
+        {
+          id: 4,
+          title: '國際觀光旅館',
+          src: require('../assets/image/國際觀光旅館@2x.png')
+        }
+      ]
     }
   },
   methods: {
@@ -150,26 +198,26 @@ export default {
         const { data } = await Restaurant.getRestaurant()
         const lists = data
         this.restaurantList = lists.splice(0, 8)
-        console.log(data)
-      } catch (err) {
-        console.error(err)
-      }
-    },
-    // 取得旅宿環境
-    async getHotel () {
-      try {
-        const { data } = await Hotel.getHotel()
-        console.log(data)
-        // this.hotelList = data.splice(0, 2)
       } catch (err) {
         console.error(err)
       }
     }
+    // 取得旅宿環境
+    // async getHotel () {
+    //   try {
+    //     const { data } = await Hotel.getHotel()
+    //     console.log(data)
+    //     this.hotelList = data.splice(0, 4)
+    //   } catch (err) {
+    //     console.error(err)
+    //   }
+    // }
   },
   mounted () {
     this.getScenicSpot()
     this.getTourism()
     this.getRestaurant()
+    // this.getHotel()
   }
 }
 </script>
@@ -195,9 +243,19 @@ export default {
   top: 1450px;
   right: 0;
 }
+.cloud_four {
+  position: absolute;
+  top: 3300px;
+  left: 0;
+}
 .saly-14 {
   position: absolute;
   top: 2100px;
   left: 0;
+}
+.boot {
+  position: absolute;
+  top: 3800px;
+  right: 0;
 }
 </style>

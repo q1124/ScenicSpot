@@ -21,6 +21,11 @@ export default new Router({
           path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/dashboard')
+        },
+        {
+          path: 'scenic',
+          name: 'scenic',
+          component: () => import('@/views/scenic')
         }
       ]
     }
